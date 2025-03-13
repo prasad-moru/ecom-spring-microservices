@@ -33,13 +33,13 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <image>
-            <name>saiupadhyayula007/new-${project.artifactId}</name>
-            <builder>dashaun/builder:tiny</builder>
+            <name>prasad890/new-${project.artifactId}</name>
+            <builder>paketobuildpacks/builder:base</builder>
             <publish>true</publish>
           </image>
           <docker>
             <publishRegistry>
-              <username>saiupadhyayula007</username>
+              <username>prasad890</username>
               <password>${dockerPassword}</password>
             </publishRegistry>
           </docker>
