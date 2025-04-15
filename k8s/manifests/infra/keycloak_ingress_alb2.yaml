@@ -6,14 +6,23 @@ metadata:
     kubernetes.io/ingress.class: "alb"
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=600
+    alb.ingress.kubernetes.io/stickiness.enabled: "true"
+    alb.ingress.kubernetes.io/stickiness.lb_cookie.duration_seconds: "86400"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:897722665188:certificate/ff6eb988-b3aa-4a88-b435-91ee1865b388"
-    # Add SSL redirect
     alb.ingress.kubernetes.io/ssl-redirect: '443'
-    # Add successful response code ranges
     alb.ingress.kubernetes.io/success-codes: '200-399'
-    # Add health check path
     alb.ingress.kubernetes.io/healthcheck-path: '/health'
+    # Security headers to fix CSP issues
+    alb.ingress.kubernetes.io/response-headers: >
+      {
+        "Content-Security-Policy": "frame-src 'self' https://preferededucation.com; default-src 'self' https:; img-src 'self' https: data:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+      }
 spec:
   ingressClassName: alb
   rules:
