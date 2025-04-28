@@ -1,0 +1,29 @@
+Step 6: Set up Application Load Balancer
+Go to EC2 > Load Balancers
+
+Create Application Load Balancer
+
+Internet-facing
+
+Listen on HTTPS (port 443)
+
+Select the ACM certificate you created
+
+Security group allowing HTTPS (port 443) from internet
+
+Configure target group:
+
+Target type: Instance
+
+Protocol: HTTP
+
+Port: 8080
+
+Health check path: /health
+
+Register your EC2 instance to the target group
+
+
+minikube config set memory 12g
+minikube config set cpus 4
+minikube config set driver docker  # or hyperv, virtualbox, etc.
